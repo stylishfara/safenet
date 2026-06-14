@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { CornerDownLeft, Delete } from "lucide-react"
 
 const NUMPAD_ROWS = [
@@ -31,6 +32,7 @@ function NumKey({ n, s, height, onPress }: { n: string; s: string; height: numbe
 }
 
 export default function VerifyEmail() {
+  const router = useRouter()
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""))
 
   const handlePress = (n: string) => {
@@ -50,18 +52,18 @@ export default function VerifyEmail() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f5f5f5]">
-      {/* iPhone 15 Pro — 393 × 852 pt */}
-      <div className="relative h-[852px] w-[393px] overflow-hidden bg-white">
+    <div className="flex h-screen items-center justify-center overflow-hidden bg-[#f5f5f5]">
+      {/* 402 × 874 — locked to Figma frame */}
+      <div className="relative h-[874px] w-[402px] overflow-hidden bg-white">
 
         {/* Content — 20 px side padding, 24 px top */}
-        <div className="absolute left-[20px] top-[24px] w-[353px]">
+        <div className="absolute left-[20px] top-[24px] w-[362px]">
           <div className="flex flex-col gap-[30px]">
 
             {/* Title block */}
             <div className="flex flex-col gap-[16px]">
               <div className="flex items-center justify-between">
-                <button aria-label="Back">
+                <button onClick={() => router.back()} aria-label="Back">
                   <CornerDownLeft size={24} className="text-[#262626]" />
                 </button>
                 <div className="h-[21px] w-[29px]" />
@@ -91,14 +93,14 @@ export default function VerifyEmail() {
         </div>
 
         {/*
-         * Continue bar — full width, sits directly above keyboard
-         * 852 - 291 (keyboard) - 48 (bar) = 513
+         * Continue bar — full width, above keyboard
+         * 874 - 291 (keyboard) - 48 (bar) = 535
          */}
-        <div className="absolute left-0 right-0 top-[513px] flex h-[48px] items-center justify-center bg-black">
+        <div className="absolute left-0 right-0 top-[535px] flex h-[48px] items-center justify-center bg-black">
           <span className="text-[16px] font-semibold text-white">Continue</span>
         </div>
 
-        {/* iOS keyboard — 393 × 291, pinned to bottom */}
+        {/* iOS keyboard — 402 × 291, pinned to bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-[291px] overflow-hidden bg-[rgba(206,210,217,0.7)] backdrop-blur-[35px]">
           <div className="flex flex-col gap-[7px] px-[6px] pt-[6px]">
 
@@ -121,10 +123,7 @@ export default function VerifyEmail() {
               >
                 <span className="text-[25px] font-normal leading-none tracking-[-0.5px] text-black">0</span>
               </button>
-              <button
-                onClick={handleDelete}
-                className="flex flex-1 items-center justify-center rounded-[5px]"
-              >
+              <button onClick={handleDelete} className="flex flex-1 items-center justify-center rounded-[5px]">
                 <Delete size={22} className="text-black" />
               </button>
             </div>
