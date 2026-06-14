@@ -1,46 +1,52 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 
-export default function Emergency() {
+const ALERT_DESTINATIONS: Record<string, string> = {
+  police: "/police-alert",
+  fire: "/fire-alert",
+  medical: "/medical-alert",
+}
+
+const ALERT_MESSAGES: Record<string, string> = {
+  police: "Contacting the police while sharing your location with emergency contacts.",
+  fire: "Contacting the fire service while sharing your location with emergency contacts.",
+  medical: "Contacting medical services while sharing your location with emergency contacts.",
+}
+
+function EmergencyContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const type = searchParams.get("type") || "police"
   const [count, setCount] = useState(5)
 
   useEffect(() => {
-    if (count <= 0) return
+    if (count <= 0) {
+      router.push(ALERT_DESTINATIONS[type] ?? "/police-alert")
+      return
+    }
     const t = setTimeout(() => setCount((c) => c - 1), 1000)
     return () => clearTimeout(t)
-  }, [count])
+  }, [count, router, type])
 
   return (
     <div className="fixed inset-0 flex items-start justify-center overflow-hidden bg-[#f5f5f5] md:items-center">
       <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-[#ffe2e2] md:h-[874px] md:w-[402px]">
 
-        {/* Countdown circle + message */}
         <div className="flex flex-col items-center gap-[64px]">
-
-          {/* Dashed countdown circle */}
           <div
             className="flex items-center justify-center rounded-full bg-[#febaba]"
-            style={{
-              width: 180,
-              height: 180,
-              border: "7.5px dashed #fb2c36",
-            }}
+            style={{ width: 180, height: 180, border: "7.5px dashed #fb2c36" }}
           >
-            <span className="text-[60px] font-medium leading-none text-[#fb2c36]">
-              {count}
-            </span>
+            <span className="text-[60px] font-medium leading-none text-[#fb2c36]">{count}</span>
           </div>
 
           <p className="w-[330px] text-center text-[20px] font-medium leading-[26px] text-[#262626]">
-            Contacting the police while sharing your location with emergency contacts.
+            {ALERT_MESSAGES[type]}
           </p>
-
         </div>
 
-        {/* Cancel button — pinned to bottom */}
         <div className="absolute bottom-0 left-0 right-0 px-[20px] pb-[40px]">
           <button
             onClick={() => router.push("/home")}
@@ -52,5 +58,13 @@ export default function Emergency() {
 
       </div>
     </div>
+  )
+}
+
+export default function Emergency() {
+  return (
+    <Suspense>
+      <EmergencyContent />
+    </Suspense>
   )
 }
