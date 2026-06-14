@@ -65,15 +65,13 @@ function VerifyEmailContent() {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-hidden bg-[#f5f5f5]">
-      {/* 402 × 874 — locked to Figma frame */}
-      <div className="relative h-[874px] w-[402px] overflow-hidden bg-white">
+    <div className="fixed inset-0 flex items-start justify-center overflow-hidden bg-[#f5f5f5] md:items-center">
+      <div className="relative h-full w-full overflow-hidden bg-white md:h-[874px] md:w-[402px]">
 
-        {/* Content — 20 px side padding, 24 px top */}
-        <div className="absolute left-[20px] top-[24px] w-[362px]">
+        {/* Content — top section, padded above keyboard */}
+        <div className="absolute left-[20px] right-[20px] top-[24px]">
           <div className="flex flex-col gap-[30px]">
 
-            {/* Title block */}
             <div className="flex flex-col gap-[16px]">
               <button onClick={() => router.back()} aria-label="Back" className="flex w-fit items-center">
                 <ArrowLeft size={24} className="text-[#262626]" />
@@ -88,29 +86,19 @@ function VerifyEmailContent() {
               </div>
             </div>
 
-            {/* OTP boxes — 6 × 48 px, gap 8 px */}
             <div className="flex gap-[8px]">
               {otp.map((digit, i) => <OtpBox key={i} digit={digit} />)}
             </div>
 
           </div>
 
-          {/* Resend */}
           <p className="mt-[16px] text-[14px] font-medium leading-[21px] text-[#262626]">
             Didn&apos;t get the code?{" "}
             <button className="underline decoration-solid">Resend</button>
           </p>
         </div>
 
-        {/*
-         * Continue bar — full width, above keyboard
-         * 874 - 291 (keyboard) - 48 (bar) = 535
-         */}
-        <div className="absolute left-0 right-0 top-[535px] flex h-[48px] items-center justify-center bg-black">
-          <span className="text-[16px] font-semibold text-white">Continue</span>
-        </div>
-
-        {/* iOS keyboard — 402 × 291, pinned to bottom */}
+        {/* iOS keyboard — 291px, pinned to bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-[291px] overflow-hidden bg-[rgba(206,210,217,0.7)] backdrop-blur-[35px]">
           <div className="flex flex-col gap-[7px] px-[6px] pt-[6px]">
 
@@ -122,7 +110,6 @@ function VerifyEmailContent() {
               </div>
             ))}
 
-            {/* Row 4: +*# | 0 | delete */}
             <div className="flex gap-[6px]" style={{ height: 47 }}>
               <div className="flex flex-1 items-center justify-center rounded-[5px] bg-[rgba(180,186,193,0.5)]">
                 <span className="text-[17px] text-black">+*#</span>
@@ -140,8 +127,12 @@ function VerifyEmailContent() {
 
           </div>
 
-          {/* Home indicator */}
           <div className="absolute bottom-[8px] left-1/2 h-[5px] w-[135px] -translate-x-1/2 rounded-[5px] bg-black" />
+        </div>
+
+        {/* Continue bar — sits just above the keyboard */}
+        <div className="absolute bottom-[291px] left-0 right-0 flex h-[48px] items-center justify-center bg-black">
+          <span className="text-[16px] font-semibold text-white">Continue</span>
         </div>
 
       </div>
