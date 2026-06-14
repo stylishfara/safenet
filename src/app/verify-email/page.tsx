@@ -1,14 +1,23 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { CornerDownLeft, Delete } from "lucide-react"
+import { useState, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { ArrowLeft, Delete } from "lucide-react"
 
 const NUMPAD_ROWS = [
   [{ n: "1", s: "" }, { n: "2", s: "ABC" }, { n: "3", s: "DEF" }],
   [{ n: "4", s: "GHI" }, { n: "5", s: "JKL" }, { n: "6", s: "MNO" }],
   [{ n: "7", s: "PQRS" }, { n: "8", s: "TUV" }, { n: "9", s: "WXYZ" }],
 ]
+
+function maskEmail(email: string): string {
+  const at = email.indexOf("@")
+  if (at <= 0) return email
+  const local = email.slice(0, at)
+  const domain = email.slice(at)
+  const visible = local.slice(0, 3)
+  return visible + "*".repeat(5) + domain
+}
 
 function OtpBox({ digit }: { digit: string }) {
   return (
@@ -31,9 +40,13 @@ function NumKey({ n, s, height, onPress }: { n: string; s: string; height: numbe
   )
 }
 
-export default function VerifyEmail() {
+function VerifyEmailContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""))
+
+  const rawEmail = searchParams.get("email") || ""
+  const displayEmail = rawEmail ? maskEmail(rawEmail) : "your email"
 
   const handlePress = (n: string) => {
     const idx = otp.findIndex((d) => d === "")
@@ -52,7 +65,7 @@ export default function VerifyEmail() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center overflow-hidden bg-[#f5f5f5]">
+    <div className="fixed inset-0 flex items-center justify-center overflow-hidden bg-[#f5f5f5]">
       {/* 402 × 874 — locked to Figma frame */}
       <div className="relative h-[874px] w-[402px] overflow-hidden bg-white">
 
@@ -62,18 +75,15 @@ export default function VerifyEmail() {
 
             {/* Title block */}
             <div className="flex flex-col gap-[16px]">
-              <div className="flex items-center justify-between">
-                <button onClick={() => router.back()} aria-label="Back">
-                  <CornerDownLeft size={24} className="text-[#262626]" />
-                </button>
-                <div className="h-[21px] w-[29px]" />
-              </div>
+              <button onClick={() => router.back()} aria-label="Back" className="flex w-fit items-center">
+                <ArrowLeft size={24} className="text-[#262626]" />
+              </button>
               <div className="flex flex-col gap-[8px]">
                 <h1 className="text-[20px] font-semibold leading-[26px] text-[#262626]">
                   Verify your Email
                 </h1>
                 <p className="text-[16px] font-medium leading-[24px] text-[#737373]">
-                  Enter the code sent to fra*****@gmail.com
+                  Enter the code sent to {displayEmail}
                 </p>
               </div>
             </div>
@@ -136,5 +146,13 @@ export default function VerifyEmail() {
 
       </div>
     </div>
+  )
+}
+
+export default function VerifyEmail() {
+  return (
+    <Suspense>
+      <VerifyEmailContent />
+    </Suspense>
   )
 }

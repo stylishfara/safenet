@@ -1,8 +1,8 @@
 "use client"
 
-import Link from "next/link"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { CornerDownLeft } from "lucide-react"
+import { ArrowLeft, Eye, EyeOff } from "lucide-react"
 
 function GhanaFlag() {
   return (
@@ -21,9 +21,15 @@ function GhanaFlag() {
 
 export default function CreateAccount() {
   const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleContinue = () => {
+    router.push("/verify-email?email=" + encodeURIComponent(email))
+  }
 
   return (
-    <div className="flex h-screen items-center justify-center overflow-hidden bg-[#f5f5f5]">
+    <div className="fixed inset-0 flex items-center justify-center overflow-hidden bg-[#f5f5f5]">
       {/* 402 × 874 — locked to Figma frame */}
       <div className="relative h-[874px] w-[402px] overflow-hidden bg-white">
 
@@ -32,12 +38,9 @@ export default function CreateAccount() {
 
           {/* Title block */}
           <div className="flex flex-col gap-[16px]">
-            <div className="flex items-center justify-between">
-              <button onClick={() => router.back()} aria-label="Back">
-                <CornerDownLeft size={24} className="text-[#262626]" />
-              </button>
-              <div className="h-[21px] w-[29px]" />
-            </div>
+            <button onClick={() => router.back()} aria-label="Back" className="flex w-fit items-center">
+              <ArrowLeft size={24} className="text-[#262626]" />
+            </button>
             <div className="flex flex-col gap-[8px]">
               <h1 className="text-[20px] font-semibold leading-[26px] text-[#262626]">
                 Create Account
@@ -55,7 +58,7 @@ export default function CreateAccount() {
               <label className="text-[14px] font-medium leading-[21px] text-[#262626]">First name</label>
               <input
                 type="text"
-                placeholder="Enter first name"
+                placeholder="John"
                 className="h-[40px] w-full rounded-[10px] border border-[#e5e5e5] bg-white px-[10px] text-[14px] text-[#262626] placeholder:text-[#737373] outline-none"
               />
             </div>
@@ -64,7 +67,18 @@ export default function CreateAccount() {
               <label className="text-[14px] font-medium leading-[21px] text-[#262626]">Last name</label>
               <input
                 type="text"
-                placeholder="Enter last name"
+                placeholder="Doe"
+                className="h-[40px] w-full rounded-[10px] border border-[#e5e5e5] bg-white px-[10px] text-[14px] text-[#262626] placeholder:text-[#737373] outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col gap-[4px]">
+              <label className="text-[14px] font-medium leading-[21px] text-[#262626]">Email address</label>
+              <input
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="h-[40px] w-full rounded-[10px] border border-[#e5e5e5] bg-white px-[10px] text-[14px] text-[#262626] placeholder:text-[#737373] outline-none"
               />
             </div>
@@ -78,7 +92,7 @@ export default function CreateAccount() {
                 </div>
                 <input
                   type="tel"
-                  placeholder="012345678"
+                  placeholder="024 000 0000"
                   className="h-[48px] flex-1 rounded-[10px] border border-[#e5e5e5] bg-white px-[16px] text-[14px] text-[#262626] placeholder:text-[#737373] outline-none"
                 />
               </div>
@@ -86,22 +100,33 @@ export default function CreateAccount() {
 
             <div className="flex flex-col gap-[4px]">
               <label className="text-[14px] font-medium leading-[21px] text-[#262626]">Password</label>
-              <input
-                type="password"
-                placeholder="Placeholder"
-                className="h-[40px] w-full rounded-[10px] border border-[#e5e5e5] bg-white px-[10px] text-[14px] text-[#262626] placeholder:text-[#737373] outline-none"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Create a password"
+                  className="h-[40px] w-full rounded-[10px] border border-[#e5e5e5] bg-white px-[10px] pr-[40px] text-[14px] text-[#262626] placeholder:text-[#737373] outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-[10px] top-1/2 -translate-y-1/2 text-[#737373]"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
           </div>
         </div>
 
         {/* Continue — 40 px from bottom: 874 - 48 - 40 = 786 */}
-        <Link href="/verify-email" className="absolute left-[20px] right-[20px] top-[786px]">
-          <button className="flex h-[48px] w-full items-center justify-center rounded-[51px] bg-black text-[16px] font-semibold text-white">
-            Continue
-          </button>
-        </Link>
+        <button
+          onClick={handleContinue}
+          className="absolute left-[20px] right-[20px] top-[786px] flex h-[48px] items-center justify-center rounded-[51px] bg-black text-[16px] font-semibold text-white"
+        >
+          Continue
+        </button>
 
       </div>
     </div>
