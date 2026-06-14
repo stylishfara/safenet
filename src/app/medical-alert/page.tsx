@@ -20,6 +20,7 @@ export default function MedicalAlert() {
       activeStation="37 military hospital"
       listTitle="Hospitals near you"
       stations={HOSPITALS}
+      type="medical"
     />
   )
 }

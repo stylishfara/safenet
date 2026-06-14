@@ -17,6 +17,7 @@ type AlertCallProps = {
   activeStation: string
   listTitle: string
   stations: Station[]
+  type?: string
 }
 
 export default function AlertCall({
@@ -26,6 +27,7 @@ export default function AlertCall({
   activeStation,
   listTitle,
   stations,
+  type = "police",
 }: AlertCallProps) {
   const router = useRouter()
 
@@ -75,9 +77,12 @@ export default function AlertCall({
               <div className="flex size-[56px] items-center justify-center rounded-full bg-[#171717]">
                 <Volume2 size={24} className="text-white" />
               </div>
-              <div className="flex size-[52px] items-center justify-center rounded-full bg-[#fb2c36]">
+              <button
+                onClick={() => router.push(`/call-ended?type=${type}`)}
+                className="flex size-[52px] items-center justify-center rounded-full bg-[#fb2c36]"
+              >
                 <PhoneOff size={22} className="text-white" />
-              </div>
+              </button>
             </div>
           </div>
         </div>

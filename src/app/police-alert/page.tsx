@@ -20,6 +20,7 @@ export default function PoliceAlert() {
       activeStation="Tema Station"
       listTitle="Police stations near you"
       stations={STATIONS}
+      type="police"
     />
   )
 }

@@ -20,6 +20,7 @@ export default function FireAlert() {
       activeStation="Tema Fire station"
       listTitle="Fire stations near you"
       stations={STATIONS}
+      type="fire"
     />
   )
 }
