@@ -131,9 +131,12 @@ function VerifyEmailContent() {
         </div>
 
         {/* Continue bar — sits just above the keyboard */}
-        <div className="absolute bottom-[291px] left-0 right-0 flex h-[48px] items-center justify-center bg-black">
+        <button
+          onClick={() => router.push("/sign-in")}
+          className="absolute bottom-[291px] left-0 right-0 flex h-[48px] items-center justify-center bg-black"
+        >
           <span className="text-[16px] font-semibold text-white">Continue</span>
-        </div>
+        </button>
 
       </div>
     </div>
