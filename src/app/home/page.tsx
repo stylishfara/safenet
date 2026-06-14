@@ -11,18 +11,21 @@ const ALERTS = [
     title: "Police Alert",
     subtitle: "Crime, Theft, Violent suspicion",
     bg: "#c95c5c",
+    href: "/police-alert",
   },
   {
     type: "fire" as AlertType,
     title: "Fire Alert",
     subtitle: "Fire outbreak, gas leak, etc",
     bg: "#66863e",
+    href: "/fire-alert",
   },
   {
     type: "medical" as AlertType,
     title: "Medical Alert",
     subtitle: "Accident, Injuries, etc",
     bg: "#4f6db8",
+    href: "/medical-alert",
   },
 ]
 
@@ -50,7 +53,7 @@ export default function HomePage() {
               {ALERTS.map((alert) => (
                 <button
                   key={alert.type}
-                  onClick={() => router.push("/emergency")}
+                  onClick={() => router.push(alert.href)}
                   className="flex w-full items-center justify-between rounded-[24px] px-[16px] py-[24px] text-left"
                   style={{ backgroundColor: alert.bg }}
                 >
