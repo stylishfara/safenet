@@ -3,7 +3,7 @@
 import { useState, useEffect, use } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, ChevronDown } from "lucide-react"
-import { getContact, updateContact, deleteContact, RELATIONSHIPS, type Contact } from "@/lib/contacts"
+import { getContact, deleteContact, RELATIONSHIPS, type Contact } from "@/lib/contacts"
 
 function GhanaFlag() {
   return (
@@ -39,11 +39,6 @@ export default function EditContact({ params }: { params: Promise<{ id: string }
     }
   }, [id])
 
-  const handleSave = () => {
-    updateContact(id, { name, phone, relationship })
-    router.push("/contacts")
-  }
-
   const handleDelete = () => {
     deleteContact(id)
     router.push("/contacts")
@@ -55,7 +50,7 @@ export default function EditContact({ params }: { params: Promise<{ id: string }
     <div className="fixed inset-0 flex items-start justify-center overflow-hidden bg-[#f5f5f5] md:items-center">
       <div className="relative h-full w-full overflow-hidden bg-white md:h-[874px] md:w-[402px]">
 
-        <div className="h-full overflow-y-auto pb-[100px]">
+        <div className="h-full overflow-y-auto pb-[40px]">
           <div className="px-[20px] pt-[52px]">
 
             {/* Header */}
@@ -133,15 +128,6 @@ export default function EditContact({ params }: { params: Promise<{ id: string }
           </div>
         </div>
 
-        {/* Save button */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white px-[20px] pb-[40px] pt-[12px]">
-          <button
-            onClick={handleSave}
-            className="flex h-[48px] w-full items-center justify-center rounded-[51px] bg-black text-[16px] font-semibold text-white"
-          >
-            Save Changes
-          </button>
-        </div>
 
       </div>
     </div>

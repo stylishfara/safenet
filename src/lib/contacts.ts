@@ -6,13 +6,7 @@ export type Contact = {
 }
 
 // Module-level store — persists across client navigations within a session
-export const contactStore: Contact[] = [
-  { id: "1", name: "Enyonam Gyasi", phone: "024000001", relationship: "Brother" },
-  { id: "2", name: "Asamoah Gyasi", phone: "024000002", relationship: "Sister" },
-  { id: "3", name: "Fiifi Acheampong", phone: "024000003", relationship: "Sister" },
-  { id: "4", name: "Esi Acheampong", phone: "024000004", relationship: "Father" },
-  { id: "5", name: "Ama Owusu", phone: "024000005", relationship: "Mother" },
-]
+export const contactStore: Contact[] = []
 
 export function getContacts(): Contact[] {
   return contactStore
