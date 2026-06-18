@@ -81,7 +81,7 @@ export default function History() {
             </div>
 
             {/* Search */}
-            <div className="mb-[24px] flex h-[48px] items-center gap-[8px] rounded-[12px] border border-[#e5e5e5] bg-white px-[16px] shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
+            <div className="mb-[24px] flex h-[40px] items-center gap-[8px] rounded-[12px] border border-[#e5e5e5] bg-white px-[16px] shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
               <Search size={18} className="shrink-0 text-[#737373]" />
               <input
                 type="text"
