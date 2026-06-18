@@ -17,7 +17,7 @@ export default function SignIn() {
 
           <div className="flex flex-col items-center gap-[24px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.svg" alt="Safenet" width={51} height={59} />
+            <img src="/logo.svg" alt="Safenet" width={84} height={98} />
             <p className="text-[20px] font-medium leading-[26px] text-[#262626]">Welcome back</p>
           </div>
 
