@@ -62,17 +62,17 @@ export default function History() {
               />
             </div>
 
-            {/* Type filter chips */}
-            <div className="mb-[24px] flex gap-[8px]">
+            {/* Type filter — Lume Segmented Control / Small / Square */}
+            <div className="mb-[24px] flex h-[32px] items-center rounded-[8px] border border-[#f5f5f5] bg-[#f5f5f5] p-[2px]">
               {TYPE_FILTERS.map((f) => (
                 <button
                   key={f.value}
                   onClick={() => setTypeFilter(f.value)}
-                  className="flex h-[32px] items-center rounded-[51px] px-[14px] text-[13px] font-semibold transition-colors"
+                  className="flex h-full flex-1 items-center justify-center rounded-[6px] px-[8px] text-[12px] font-medium transition-all whitespace-nowrap"
                   style={
                     typeFilter === f.value
-                      ? { backgroundColor: "#262626", color: "white" }
-                      : { backgroundColor: "#f5f5f5", color: "#737373" }
+                      ? { backgroundColor: "white", color: "#171717", boxShadow: "0px 1px 1px rgba(0,0,0,0.05)" }
+                      : { backgroundColor: "transparent", color: "#737373" }
                   }
                 >
                   {f.label}
