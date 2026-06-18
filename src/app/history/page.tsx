@@ -13,17 +13,6 @@ import {
   type AlertType,
 } from "@/lib/history"
 
-// Lume Badge1 tokens: Error=police, Success=fire, Information=medical
-const BADGE_BG: Record<AlertType, string> = {
-  police: "#ffe2e2",   // Base/Destructive-accent-background
-  fire:   "#dcfce7",   // Base/Success-accent-background
-  medical:"#dbeafe",   // Base/Information-accent-background
-}
-const BADGE_TEXT: Record<AlertType, string> = {
-  police: "#e7000b",   // Base/Destructive-accent-foreground
-  fire:   "#008236",   // Base/Success-accent-foreground
-  medical:"#2b7fff",   // Base/Information-accent-foreground
-}
 
 const TYPE_FILTERS: { value: AlertType | "all"; label: string }[] = [
   { value: "all", label: "All" },
@@ -108,25 +97,22 @@ export default function History() {
                         <PhoneCall size={20} className="text-[#262626]" />
                       </div>
 
-                      {/* Left: name + date + chip */}
-                      <div className="flex flex-1 flex-col gap-[2px] min-w-0">
+                      {/* Left: name + chip */}
+                      <div className="flex flex-1 flex-col gap-[4px] min-w-0">
                         <p className="truncate text-[14px] font-semibold leading-[20px] text-[#262626]">{r.stationName}</p>
-                        <p className="text-[12px] font-medium text-[#737373]">{formatDate(r.date)} · {formatTime(r.date)}</p>
-                        <div
-                          className="mt-[2px] flex w-fit items-center max-h-[22px] rounded-[32px] px-[8px] py-[2px]"
-                          style={{ backgroundColor: BADGE_BG[r.type] }}
-                        >
-                          <span
-                            className="text-[12px] font-semibold leading-[18px] whitespace-nowrap"
-                            style={{ color: BADGE_TEXT[r.type] }}
-                          >
+                        {/* Lume Badge1 Secondary — bg #f5f5f5, text #171717, radius 2px */}
+                        <div className="flex w-fit items-center max-h-[22px] rounded-[2px] bg-[#f5f5f5] px-[8px] py-[2px]">
+                          <span className="text-[12px] font-semibold leading-[18px] whitespace-nowrap text-[#171717]">
                             {TYPE_LABELS[r.type]}
                           </span>
                         </div>
                       </div>
 
-                      {/* Right: duration */}
-                      <span className="shrink-0 text-[13px] font-semibold text-[#262626]">{r.duration}</span>
+                      {/* Right: date + duration */}
+                      <div className="flex shrink-0 flex-col items-end gap-[2px]">
+                        <span className="text-[12px] font-medium text-[#737373]">{formatDate(r.date)} · {formatTime(r.date)}</span>
+                        <span className="text-[13px] font-semibold text-[#262626]">{r.duration}</span>
+                      </div>
                     </div>
                     {i < filtered.length - 1 && (
                       <div className="ml-[56px] h-px bg-[#f5f5f5]" />
