@@ -101,7 +101,7 @@ export default function History() {
                       <div className="flex flex-1 flex-col gap-[4px] min-w-0">
                         <p className="truncate text-[14px] font-semibold leading-[20px] text-[#262626]">{r.stationName}</p>
                         {/* Lume Badge1 Secondary — bg #f5f5f5, text #171717, radius 2px */}
-                        <div className="flex w-fit items-center max-h-[22px] rounded-[2px] bg-[#f5f5f5] px-[8px] py-[2px]">
+                        <div className="flex w-fit items-center max-h-[22px] rounded-[4px] bg-[#f5f5f5] px-[8px] py-[2px]">
                           <span className="text-[12px] font-semibold leading-[18px] whitespace-nowrap text-[#171717]">
                             {TYPE_LABELS[r.type]}
                           </span>
