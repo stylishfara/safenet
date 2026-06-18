@@ -68,7 +68,7 @@ export default function History() {
                 <button
                   key={f.value}
                   onClick={() => setTypeFilter(f.value)}
-                  className="flex h-full flex-1 items-center justify-center rounded-[6px] px-[8px] text-[12px] font-medium transition-all whitespace-nowrap"
+                  className="flex h-full flex-1 items-center justify-center rounded-[6px] px-[8px] text-[14px] font-medium transition-all whitespace-nowrap"
                   style={
                     typeFilter === f.value
                       ? { backgroundColor: "white", color: "#171717", boxShadow: "0px 1px 1px rgba(0,0,0,0.05)" }
