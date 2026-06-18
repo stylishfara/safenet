@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, Shield, Flame, Heart } from "lucide-react"
+import { Search, X, Shield, Flame, Heart } from "lucide-react"
 import BottomNav from "@/components/mobile/bottom-nav"
 import {
   getHistory,
@@ -65,6 +65,11 @@ export default function History() {
                 onChange={(e) => setQuery(e.target.value)}
                 className="flex-1 text-[14px] font-medium text-[#262626] placeholder:text-[#737373] outline-none"
               />
+              {query && (
+                <button onClick={() => setQuery("")} className="shrink-0 text-[#737373]">
+                  <X size={16} />
+                </button>
+              )}
             </div>
 
             {/* Type filter — Lume Segmented Control / Default / Square */}
