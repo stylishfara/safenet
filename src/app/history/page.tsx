@@ -62,20 +62,8 @@ export default function History() {
               <h1 className="text-[20px] font-semibold leading-[26px] text-[#262626]">Call History</h1>
             </div>
 
-            {/* Search */}
-            <div className="mb-[16px] flex h-[48px] items-center gap-[8px] rounded-[12px] border border-[#e5e5e5] bg-white px-[16px] shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
-              <Search size={18} className="shrink-0 text-[#737373]" />
-              <input
-                type="text"
-                placeholder="Search calls"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="flex-1 text-[14px] font-medium text-[#262626] placeholder:text-[#737373] outline-none"
-              />
-            </div>
-
-            {/* Type filter — Lume Segmented Control / Small / Square */}
-            <div className="mb-[24px] flex h-[36px] items-center rounded-[8px] border border-[#f5f5f5] bg-[#f5f5f5] p-[2px]">
+            {/* Type filter — Lume Segmented Control / Default / Square */}
+            <div className="mb-[16px] flex h-[36px] items-center rounded-[8px] border border-[#f5f5f5] bg-[#f5f5f5] p-[2px]">
               {TYPE_FILTERS.map((f) => (
                 <button
                   key={f.value}
@@ -90,6 +78,18 @@ export default function History() {
                   {f.label}
                 </button>
               ))}
+            </div>
+
+            {/* Search */}
+            <div className="mb-[24px] flex h-[48px] items-center gap-[8px] rounded-[12px] border border-[#e5e5e5] bg-white px-[16px] shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
+              <Search size={18} className="shrink-0 text-[#737373]" />
+              <input
+                type="text"
+                placeholder="Search calls"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="flex-1 text-[14px] font-medium text-[#262626] placeholder:text-[#737373] outline-none"
+              />
             </div>
 
             {/* Call list */}
