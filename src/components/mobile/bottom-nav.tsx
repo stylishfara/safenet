@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { Home, BookUser, Clock, User } from "lucide-react"
+import { Home, BookUser, History, User } from "lucide-react"
 
 type Tab = "home" | "contacts" | "history" | "profile"
 
@@ -34,10 +34,9 @@ export default function BottomNav({ active }: { active: Tab }) {
           onClick={() => router.push("/history")}
           className="flex flex-1 flex-col items-center justify-center py-[8px]"
         >
-          <Clock
+          <History
             size={24}
             className={active === "history" ? "text-[#262626]" : "text-[#737373]"}
-            fill={active === "history" ? "#262626" : "none"}
           />
         </button>
         <button

@@ -2,27 +2,41 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, Search, ChevronRight, Plus } from "lucide-react"
+import { Search, ChevronRight, Plus } from "lucide-react"
 import BottomNav from "@/components/mobile/bottom-nav"
 import { getContacts, getInitials, type Contact } from "@/lib/contacts"
 
-function AvatarGroup() {
-  const avatars = [
-    { bg: "#8B6F5E", initials: "AO" },
-    { bg: "#C4714B", initials: "EA" },
-    { bg: "#5C5C5C", initials: "FA" },
-  ]
+function PersonAvatar({ skin, hair, offset }: { skin: string; hair: string; offset: number }) {
   return (
-    <div className="flex items-center">
-      {avatars.map((a, i) => (
-        <div
-          key={i}
-          className="flex size-[48px] items-center justify-center rounded-full border-[2px] border-white text-[14px] font-semibold text-white"
-          style={{ backgroundColor: a.bg, marginLeft: i === 0 ? 0 : -12, zIndex: avatars.length - i }}
-        >
-          {a.initials}
-        </div>
-      ))}
+    <div
+      className="relative flex size-[52px] shrink-0 items-end justify-center overflow-hidden rounded-full border-[2px] border-white"
+      style={{ backgroundColor: skin, marginLeft: offset }}
+    >
+      {/* Hair */}
+      <div
+        className="absolute top-[6px] size-[22px] rounded-full"
+        style={{ backgroundColor: hair }}
+      />
+      {/* Head */}
+      <div
+        className="absolute top-[10px] size-[20px] rounded-full"
+        style={{ backgroundColor: skin }}
+      />
+      {/* Shoulders */}
+      <div
+        className="absolute bottom-0 h-[22px] w-[44px] rounded-t-full"
+        style={{ backgroundColor: hair }}
+      />
+    </div>
+  )
+}
+
+function AvatarGroup() {
+  return (
+    <div className="flex items-end">
+      <PersonAvatar skin="#C8956C" hair="#4A2E1A" offset={0} />
+      <PersonAvatar skin="#8B5E3C" hair="#8B0000" offset={-14} />
+      <PersonAvatar skin="#D4A574" hair="#2C1810" offset={-14} />
     </div>
   )
 }
@@ -66,11 +80,9 @@ export default function Contacts() {
         <div className="h-full overflow-y-auto pb-[100px]">
           <div className="px-[20px] pt-[52px]">
 
-            <div className="mb-[32px] flex items-center justify-between">
-              <button onClick={() => router.back()} aria-label="Back">
-                <ArrowLeft size={24} className="text-[#262626]" />
-              </button>
-              <p className="text-[16px] font-medium leading-[24px] text-[#262626]">Emergency Contacts</p>
+            {/* Page header */}
+            <div className="mb-[24px] flex items-center justify-between">
+              <h1 className="text-[20px] font-semibold leading-[26px] text-[#262626]">Emergency Contacts</h1>
               <button
                 onClick={() => router.push("/contacts/add")}
                 className="flex size-[40px] items-center justify-center rounded-full bg-black"
@@ -79,6 +91,7 @@ export default function Contacts() {
               </button>
             </div>
 
+            {/* Search */}
             <div className="mb-[32px] flex h-[48px] items-center gap-[8px] rounded-[12px] border border-[#e5e5e5] bg-white px-[16px] shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
               <Search size={20} className="text-[#737373]" />
               <input
@@ -90,6 +103,7 @@ export default function Contacts() {
               />
             </div>
 
+            {/* List or empty state */}
             {filtered.length === 0 ? (
               <EmptyState />
             ) : (

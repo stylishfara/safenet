@@ -75,7 +75,6 @@ export default function History() {
             {/* Header */}
             <div className="mb-[24px]">
               <h1 className="text-[20px] font-semibold leading-[26px] text-[#262626]">Call History</h1>
-              <p className="mt-[4px] text-[14px] font-medium text-[#737373]">{records.length} total calls</p>
             </div>
 
             {/* Search + Sort row */}
