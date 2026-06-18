@@ -8,7 +8,7 @@ export default function SplashScreen() {
       <Link href="/create-account" className="h-full w-full md:h-[874px] md:w-[402px]">
         <div className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden bg-white">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Safenet" width={140} height={163} />
+          <img src="/logo.svg" alt="Safenet" width={110} height={128} />
         </div>
       </Link>
     </div>
