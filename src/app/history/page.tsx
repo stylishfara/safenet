@@ -1,17 +1,21 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, PhoneCall } from "lucide-react"
+import { Search, Shield, Flame, Heart } from "lucide-react"
 import BottomNav from "@/components/mobile/bottom-nav"
 import {
   getHistory,
-  formatDate,
   formatTime,
   TYPE_LABELS,
-  TYPE_COLORS,
   type CallRecord,
   type AlertType,
 } from "@/lib/history"
+
+const TYPE_ICONS = {
+  police:  Shield,
+  fire:    Flame,
+  medical: Heart,
+}
 
 
 const TYPE_FILTERS: { value: AlertType | "all"; label: string }[] = [
@@ -92,26 +96,21 @@ export default function History() {
                 {filtered.map((r, i) => (
                   <div key={r.id}>
                     <div className="flex items-center gap-[12px] py-[14px]">
-                      {/* Icon — grey bg, black icon */}
+                      {/* Icon — grey bg, type-specific icon */}
                       <div className="flex size-[44px] shrink-0 items-center justify-center rounded-[12px] bg-[#f5f5f5]">
-                        <PhoneCall size={20} className="text-[#262626]" />
+                        {(() => { const Icon = TYPE_ICONS[r.type]; return <Icon size={20} className="text-[#262626]" /> })()}
                       </div>
 
-                      {/* Left: name + chip */}
-                      <div className="flex flex-1 flex-col gap-[4px] min-w-0">
+                      {/* Left: name + plain text type label */}
+                      <div className="flex flex-1 flex-col gap-[2px] min-w-0">
                         <p className="truncate text-[14px] font-semibold leading-[20px] text-[#262626]">{r.stationName}</p>
-                        {/* Lume Badge1 Secondary — bg #f5f5f5, text #171717, radius 2px */}
-                        <div className="flex w-fit items-center max-h-[22px] rounded-[4px] bg-[#f5f5f5] px-[8px] py-[2px]">
-                          <span className="text-[12px] font-semibold leading-[18px] whitespace-nowrap text-[#171717]">
-                            {TYPE_LABELS[r.type]}
-                          </span>
-                        </div>
+                        <span className="text-[12px] font-medium text-[#737373]">{TYPE_LABELS[r.type]}</span>
                       </div>
 
-                      {/* Right: date + duration */}
+                      {/* Right: duration first, then time */}
                       <div className="flex shrink-0 flex-col items-end gap-[2px]">
-                        <span className="text-[12px] font-medium text-[#737373]">{formatDate(r.date)} · {formatTime(r.date)}</span>
                         <span className="text-[13px] font-semibold text-[#262626]">{r.duration}</span>
+                        <span className="text-[12px] font-medium text-[#737373]">{formatTime(r.date)}</span>
                       </div>
                     </div>
                     {i < filtered.length - 1 && (
