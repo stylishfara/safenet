@@ -13,6 +13,18 @@ import {
   type AlertType,
 } from "@/lib/history"
 
+// Lume Badge1 tokens: Error=police, Success=fire, Information=medical
+const BADGE_BG: Record<AlertType, string> = {
+  police: "#ffe2e2",   // Base/Destructive-accent-background
+  fire:   "#dcfce7",   // Base/Success-accent-background
+  medical:"#dbeafe",   // Base/Information-accent-background
+}
+const BADGE_TEXT: Record<AlertType, string> = {
+  police: "#e7000b",   // Base/Destructive-accent-foreground
+  fire:   "#008236",   // Base/Success-accent-foreground
+  medical:"#2b7fff",   // Base/Information-accent-foreground
+}
+
 const TYPE_FILTERS: { value: AlertType | "all"; label: string }[] = [
   { value: "all", label: "All" },
   { value: "police", label: "Police" },
@@ -100,13 +112,19 @@ export default function History() {
                       </div>
 
                       {/* Info */}
-                      <div className="flex flex-1 flex-col gap-[2px] min-w-0">
-                        <span
-                          className="text-[11px] font-semibold uppercase tracking-wide"
-                          style={{ color: TYPE_COLORS[r.type] }}
+                      <div className="flex flex-1 flex-col gap-[4px] min-w-0">
+                        {/* Lume Badge1 chip — Error/Success/Information variants */}
+                        <div
+                          className="flex w-fit items-center gap-[4px] max-h-[22px] rounded-[32px] px-[8px] py-[2px]"
+                          style={{ backgroundColor: BADGE_BG[r.type] }}
                         >
-                          {TYPE_LABELS[r.type]}
-                        </span>
+                          <span
+                            className="text-[12px] font-semibold leading-[18px] whitespace-nowrap"
+                            style={{ color: BADGE_TEXT[r.type] }}
+                          >
+                            {TYPE_LABELS[r.type]}
+                          </span>
+                        </div>
                         <p className="truncate text-[14px] font-semibold leading-[20px] text-[#262626]">{r.stationName}</p>
                         <p className="text-[12px] font-medium text-[#737373]">{formatDate(r.date)} · {formatTime(r.date)}</p>
                       </div>
