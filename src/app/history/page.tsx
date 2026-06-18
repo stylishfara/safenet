@@ -75,7 +75,7 @@ export default function History() {
             </div>
 
             {/* Type filter — Lume Segmented Control / Small / Square */}
-            <div className="mb-[24px] flex h-[32px] items-center rounded-[8px] border border-[#f5f5f5] bg-[#f5f5f5] p-[2px]">
+            <div className="mb-[24px] flex h-[36px] items-center rounded-[8px] border border-[#f5f5f5] bg-[#f5f5f5] p-[2px]">
               {TYPE_FILTERS.map((f) => (
                 <button
                   key={f.value}
